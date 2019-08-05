@@ -32,6 +32,7 @@ class MapViewController: UIViewController {
         locationManager.requestWhenInUseAuthorization()
         locationManager.delegate = self
         locationManager.startUpdatingLocation()
+        
     }
     
     func moveCamera(location:CLLocation){
