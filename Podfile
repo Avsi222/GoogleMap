@@ -7,5 +7,7 @@ target 'MapProject' do
 
   # Pods for MapProject
 	pod 'GoogleMaps'
+  pod 'Realm'
+  pod 'RealmSwift'
 
 end
