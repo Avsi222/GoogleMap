@@ -18,7 +18,7 @@ class MapViewController: UIViewController {
     @IBOutlet weak var mapView: GMSMapView?
     
     // Local variables
-    var locationManager: CLLocationManager!
+    var locationManager: LocationManager = LocationManager.instance
     let coordinate = CLLocationCoordinate2D(latitude: 55.878626, longitude: 37.719)
     var beginBackgruondTask: UIBackgroundTaskIdentifier?
     var routePath: GMSMutablePath?
@@ -30,6 +30,19 @@ class MapViewController: UIViewController {
         super.viewDidLoad()
         configureMap()
         configureLocationManager()
+    }
+    
+    func configureLocationManager(){
+        locationManager.location.asObservable().bind { [weak self] location in
+            guard let location = location else { return }
+            self?.routePath?.add(location.coordinate)
+            self?.route?.path = self?.routePath
+            self?.moveCamera(location: location)
+            if self!.isTracking{
+                self?.saveToArrayLocation(location: location)
+            }
+             
+        }
     }
     
     func configureTimer(){
@@ -44,17 +57,6 @@ class MapViewController: UIViewController {
         mapView?.camera = camera
     }
     
-    func configureLocationManager(){
-        locationManager = CLLocationManager()
-        locationManager.requestAlwaysAuthorization()
-        locationManager.allowsBackgroundLocationUpdates = true //разрешить обновление в background
-        locationManager.delegate = self
-        locationManager.startMonitoringSignificantLocationChanges() // для отслеживания занчимых изменений
-        locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
-        
-        //locationManager.pausesLocationUpdatesAutomatically = false //Для постоянного остлеживания
-    }
-    
     func moveCamera(location:CLLocation){
         let camera = GMSCameraPosition.init(target: location.coordinate, zoom: 17)
         mapView?.camera = camera
@@ -65,24 +67,6 @@ class MapViewController: UIViewController {
         marker.map = mapView
     }
 
-}
-
-extension MapViewController:CLLocationManagerDelegate{
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        guard let location = locations.last else { return }
-        print(coordinate)
-        //addPinToMap(location: location)
-        routePath?.add(location.coordinate)
-        route?.path = routePath
-        moveCamera(location: location)
-        if isTracking{
-            saveToArrayLocation(location: location)
-        }
-    }
-    
-    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-        print(error)
-    }
 }
 
 //Tracking
@@ -180,10 +164,14 @@ extension MapViewController{
         for locCoord in locationArray{
             let lat = locCoord.coordinate.latitude
             let long = locCoord.coordinate.longitude
-            let coord = Coordinates(value: ["lat": lat,"long": long])
+            let coord = Coordinates(long: long, lat: lat)
             //let coord = Coordinates()
             //coord.lat = locCoord.coordinate.latitude
             //coord.long = locCoord.coordinate.longitude
+            try! realm.write {
+                
+                realm.add(coord)
+            }
             print(coord)
             routeCoord.locationArray.append(coord)
         }

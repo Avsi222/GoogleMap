@@ -9,5 +9,7 @@ target 'MapProject' do
 	pod 'GoogleMaps'
   pod 'Realm'
   pod 'RealmSwift'
+ pod 'RxSwift'
+pod 'RxCocoa'
 
 end

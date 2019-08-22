@@ -8,16 +8,45 @@
 
 import UIKit
 import RealmSwift
+import RxSwift
+import RxCocoa
 
 class LoginViewController: UIViewController {
-
+    
     @IBOutlet weak var loginTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
+    @IBOutlet weak var loginButton:UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        loginTextField.autocorrectionType = .no
+        passwordTextField.isSecureTextEntry = true
+        configureLoginBindings()
         
     }
+    
+  
+    func configureLoginBindings() {
+        Observable
+            // Объединяем два обсервера в один
+            .combineLatest(
+                // Обсервер изменения текста
+                loginTextField.rx.text,
+                // Обсервер изменения текста
+                passwordTextField.rx.text
+            )
+            // Модифицируем значения из двух обсерверов в один
+            .map { login, password in
+                // Если введены логин и пароль больше 6 символов, будет возвращено “истина”
+                return !(login ?? "").isEmpty && (password ?? "").count >= 6
+            }
+            // Подписываемся на получение событий
+            .bind { [weak loginButton] inputFilled in
+                // Если событие означает успех, активируем кнопку, иначе деактивируем
+                loginButton?.isEnabled = inputFilled
+        }
+    }
+
     
     @IBAction func loginPress(_ sender: UIButton){
         

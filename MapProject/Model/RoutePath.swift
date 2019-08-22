@@ -19,4 +19,10 @@ class RouteRealm: Object{
 class Coordinates: Object {
     dynamic var long: Double = 0
     dynamic var lat: Double = 0
+    
+   convenience init(long:Double,lat:Double) {
+        self.init()
+        self.long = long
+        self.lat = lat
+    }
 }
