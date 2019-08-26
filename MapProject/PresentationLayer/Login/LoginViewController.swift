@@ -24,7 +24,6 @@ class LoginViewController: UIViewController {
         configureLoginBindings()
         
     }
-    
   
     func configureLoginBindings() {
         Observable
@@ -81,14 +80,15 @@ class LoginViewController: UIViewController {
         if userForCheck != nil {
             let newPassword = password + "1"
             user.passsword = newPassword
+            alerts().showErrorAlert(vc: self, message: "Этот пользователь уже зарегестрирован")
         }else{
             user.passsword = password
+            try! realm.write {
+                realm.add(user)
+                performSegue(withIdentifier: "LogIn", sender: self)
+            }
         }
         
-        try! realm.write {
-            realm.add(user)
-            performSegue(withIdentifier: "LogIn", sender: self)
-        }
         
     }
 

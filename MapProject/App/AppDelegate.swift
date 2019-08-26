@@ -9,6 +9,7 @@
 import UIKit
 import CoreData
 import GoogleMaps
+import UserNotifications
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -20,7 +21,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         GMSServices.provideAPIKey("AIzaSyBp-QTKz-xN9CmhAMU8_1tf5QV1HiDAvB0")
         
+        registrPush()
         return true
+    }
+    
+    func registrPush(){
+        let center = UNUserNotificationCenter.current()
+        center.requestAuthorization(options: [.alert, .sound, .badge]) { granted, error in
+            if granted {
+                print("Разрешение получено.")
+            } else {
+                print("Разрешение не получено.")
+            }
+        }
     }
 
     func applicationWillResignActive(_ application: UIApplication) {
@@ -32,6 +45,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationDidEnterBackground(_ application: UIApplication) {
         // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
         // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+        sendPush()
         
         let imageView = UIImageView(frame: self.window!.bounds)
         imageView.tag = 101
@@ -59,9 +73,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
         // Saves changes in the application's managed object context before the application terminates.
+        sendPush()
         self.saveContext()
     }
-
     // MARK: - Core Data stack
 
     lazy var persistentContainer: NSPersistentContainer = {
@@ -109,3 +123,59 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 }
 
+//NOTIFICATIONS
+extension AppDelegate{
+    func makeNotificationContent() -> UNNotificationContent {
+        // Внешний вид уведомления
+        let content = UNMutableNotificationContent()
+        // Заголовок
+        content.title = "Привет"
+        // Подзаголовок
+        content.subtitle = "Скидки"
+        // Основное сообщение
+        content.body = "Заходи, будет интересно"
+        // Цифра в бейдже на иконке
+        content.badge = 1
+        return content
+    }
+    
+    func makeIntervalNotificatioTrigger() -> UNNotificationTrigger {
+        return UNTimeIntervalNotificationTrigger(
+            // Количество секунд до показа уведомления
+            timeInterval: 5, //30 минут 30*60*60
+            // Надо ли повторять
+            repeats: false
+        )
+    }
+    
+    
+    
+    func sendPush(){
+        self.sendNotificatioRequest(
+            content: self.makeNotificationContent(),
+            trigger: self.makeIntervalNotificatioTrigger()
+        )
+    }
+    
+    func sendNotificatioRequest(
+        content: UNNotificationContent,
+        trigger: UNNotificationTrigger) {
+        
+        // Создаём запрос на показ уведомления
+        let request = UNNotificationRequest(
+            identifier: "alarm",
+            content: content,
+            trigger: trigger
+        )
+        
+        let center = UNUserNotificationCenter.current()
+        // Добавляем запрос в центр уведомлений
+        center.add(request) { error in
+            // Если не получилось добавить запрос,
+            // показываем ошибку, которая при этом возникла
+            if let error = error {
+                print(error.localizedDescription)
+            }
+        }
+    }
+}
