@@ -25,6 +25,7 @@ class MapViewController: UIViewController {
     var route: GMSPolyline?
     var isTracking:Bool = false /// Флаг включен ли трэк
     var routeArray = [CLLocation]()
+    var userMarker:GMSMarker!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,6 +38,7 @@ class MapViewController: UIViewController {
             guard let location = location else { return }
             self?.routePath?.add(location.coordinate)
             self?.route?.path = self?.routePath
+            self?.addPinToMap(location: location)
             self?.moveCamera(location: location)
             if self!.isTracking{
                 self?.saveToArrayLocation(location: location)
@@ -55,6 +57,7 @@ class MapViewController: UIViewController {
     func configureMap(){
         let camera = GMSCameraPosition.init(target: coordinate, zoom: 17)
         mapView?.camera = camera
+        userMarker = GMSMarker(position: coordinate)
     }
     
     func moveCamera(location:CLLocation){
@@ -63,8 +66,11 @@ class MapViewController: UIViewController {
     }
     
     func addPinToMap(location:CLLocation){
-        let marker = GMSMarker(position: location.coordinate)
-        marker.map = mapView
+        guard let image = DataManager().getSavedImage(named: "myImage") else{ return }
+        userMarker.position = location.coordinate
+        userMarker.map = mapView
+        userMarker.icon = image
+        userMarker.iconView?.layer.cornerRadius = 15
     }
 
 }

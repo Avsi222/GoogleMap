@@ -131,9 +131,9 @@ extension AppDelegate{
         // Заголовок
         content.title = "Привет"
         // Подзаголовок
-        content.subtitle = "Скидки"
+        content.subtitle = "заходи"
         // Основное сообщение
-        content.body = "Заходи, будет интересно"
+        content.body = "Обнови свою локацию"
         // Цифра в бейдже на иконке
         content.badge = 1
         return content

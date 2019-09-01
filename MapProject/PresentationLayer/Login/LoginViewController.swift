@@ -19,6 +19,12 @@ class LoginViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        //DataForTestStart
+        loginTextField.text = "arseniydor"
+        passwordTextField.text = "qwerty"
+        //DataForTestEnd
+        
+        
         loginTextField.autocorrectionType = .no
         passwordTextField.isSecureTextEntry = true
         configureLoginBindings()

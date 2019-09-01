@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="2ad-Yk-KAv">
+    <device id="retina6_1" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Menu View Controller-->
+        <scene sceneID="eg8-Hn-fcP">
+            <objects>
+                <viewController id="F2G-Nl-i1S" customClass="MenuViewController" customModule="MapProject" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="s6q-EV-IjV">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Добро пожаловать!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="S1H-YF-llC">
+                                <rect key="frame" x="12" y="178" width="390" height="35"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="35" id="RwR-eO-MOw"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="21"/>
+                                <color key="textColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Uht-s1-huC">
+                                <rect key="frame" x="20" y="368" width="374" height="40"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="wLU-5d-M82"/>
+                                </constraints>
+                                <state key="normal" title="Построить маршрут">
+                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tEd-rM-r4U">
+                                <rect key="frame" x="20" y="428" width="374" height="40"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="Ycw-99-Nv9"/>
+                                </constraints>
+                                <state key="normal" title="Добавить фотографию">
+                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" red="0.84314525129999995" green="0.84312695260000003" blue="0.84313064810000005" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                        <constraints>
+                            <constraint firstItem="tEd-rM-r4U" firstAttribute="centerY" secondItem="s6q-EV-IjV" secondAttribute="centerY" id="1RE-mb-BTt"/>
+                            <constraint firstItem="tEd-rM-r4U" firstAttribute="leading" secondItem="9CQ-cL-GlO" secondAttribute="leading" constant="20" id="S8F-2n-eiE"/>
+                            <constraint firstItem="Uht-s1-huC" firstAttribute="centerX" secondItem="s6q-EV-IjV" secondAttribute="centerX" id="Stt-rY-30A"/>
+                            <constraint firstItem="Uht-s1-huC" firstAttribute="leading" secondItem="9CQ-cL-GlO" secondAttribute="leading" constant="20" id="Ua2-nT-i7O"/>
+                            <constraint firstItem="tEd-rM-r4U" firstAttribute="top" secondItem="Uht-s1-huC" secondAttribute="bottom" constant="20" id="Ydv-5d-7Y4"/>
+                            <constraint firstItem="9CQ-cL-GlO" firstAttribute="trailing" secondItem="tEd-rM-r4U" secondAttribute="trailing" constant="20" id="ctv-cs-T1e"/>
+                            <constraint firstItem="S1H-YF-llC" firstAttribute="leading" secondItem="9CQ-cL-GlO" secondAttribute="leading" constant="12" id="dRZ-cq-c1Y"/>
+                            <constraint firstItem="tEd-rM-r4U" firstAttribute="centerX" secondItem="s6q-EV-IjV" secondAttribute="centerX" id="e0K-Px-E4a"/>
+                            <constraint firstItem="9CQ-cL-GlO" firstAttribute="trailing" secondItem="S1H-YF-llC" secondAttribute="trailing" constant="12" id="fje-fs-5Qh"/>
+                            <constraint firstItem="S1H-YF-llC" firstAttribute="top" secondItem="9CQ-cL-GlO" secondAttribute="top" constant="90" id="gev-YL-vCP"/>
+                            <constraint firstItem="9CQ-cL-GlO" firstAttribute="trailing" secondItem="Uht-s1-huC" secondAttribute="trailing" constant="20" id="wVa-IZ-P7B"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="9CQ-cL-GlO"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="y4w-Yr-HS6"/>
+                    <connections>
+                        <outlet property="openCameraButton" destination="tEd-rM-r4U" id="EpO-Bu-J7s"/>
+                        <outlet property="openMapButton" destination="Uht-s1-huC" id="67x-dJ-Jze"/>
+                        <segue destination="118-5g-O3g" kind="show" identifier="openMap" id="7v6-fu-hwG"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="qSt-dn-bqf" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-165.21739130434784" y="95.758928571428569"/>
+        </scene>
+        <!--Map-->
+        <scene sceneID="KYC-2W-2Ln">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Map" id="118-5g-O3g" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="6fC-y4-BBZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="739" y="67"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="8Ba-7d-BgP">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="2ad-Yk-KAv" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="G4w-xx-2eU">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="F2G-Nl-i1S" kind="relationship" relationship="rootViewController" id="6Db-GQ-F7v"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="5aA-FK-beU" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1075.3623188405797" y="95.758928571428569"/>
+        </scene>
+    </scenes>
+</document>
